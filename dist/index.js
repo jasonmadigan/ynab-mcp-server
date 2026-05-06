@@ -19,6 +19,7 @@ import * as ListAccountsTool from "./tools/ListAccountsTool.js";
 import * as ListScheduledTransactionsTool from "./tools/ListScheduledTransactionsTool.js";
 import * as ImportTransactionsTool from "./tools/ImportTransactionsTool.js";
 import * as ListMonthsTool from "./tools/ListMonthsTool.js";
+import * as UpdateCategoryTool from "./tools/UpdateCategoryTool.js";
 const server = new McpServer({
     name: "ynab-mcp-server",
     version: "0.1.2",
@@ -106,6 +107,11 @@ server.registerTool(ListMonthsTool.name, {
     description: ListMonthsTool.description,
     inputSchema: ListMonthsTool.inputSchema,
 }, async (input) => ListMonthsTool.execute(input, api));
+server.registerTool(UpdateCategoryTool.name, {
+    title: "Update Category",
+    description: UpdateCategoryTool.description,
+    inputSchema: UpdateCategoryTool.inputSchema,
+}, async (input) => UpdateCategoryTool.execute(input, api));
 // Start the server
 async function main() {
     const transport = new StdioServerTransport();
