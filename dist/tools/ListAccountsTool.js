@@ -32,6 +32,12 @@ export async function execute(input, api) {
             cleared_balance: (account.cleared_balance / 1000).toFixed(2),
             uncleared_balance: (account.uncleared_balance / 1000).toFixed(2),
             transfer_payee_id: account.transfer_payee_id,
+            note: account.note,
+            debt_original_balance: account.debt_original_balance != null ? (account.debt_original_balance / 1000).toFixed(2) : undefined,
+            debt_interest_rates: account.debt_interest_rates ?? undefined,
+            debt_minimum_payments: account.debt_minimum_payments != null
+                ? Object.fromEntries(Object.entries(account.debt_minimum_payments).map(([k, v]) => [k, (v / 1000).toFixed(2)]))
+                : undefined,
         }));
         return {
             content: [{
