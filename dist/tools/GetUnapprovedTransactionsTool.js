@@ -17,7 +17,9 @@ export async function execute(input, api) {
     try {
         const budgetId = getBudgetId(input.budgetId);
         console.error(`Getting unapproved transactions for budget ${budgetId}`);
-        const response = await api.transactions.getTransactions(budgetId, undefined, ynab.GetTransactionsTypeEnum.Unapproved);
+        const response = await api.transactions.getTransactions(budgetId, undefined, // sinceDate
+        undefined, // untilDate
+        ynab.GetTransactionsTypeEnum.Unapproved);
         // Transform the transactions to a more readable format
         const transactions = response.data.transactions
             .filter((transaction) => !transaction.deleted)

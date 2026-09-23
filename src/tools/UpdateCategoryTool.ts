@@ -34,7 +34,7 @@ export async function execute(input: UpdateCategoryInput, api: ynab.API) {
   try {
     const budgetId = getBudgetId(input.budgetId);
 
-    const categoryData: ynab.SaveCategory = {};
+    const categoryData: ynab.ExistingCategory = {};
     if (input.name !== undefined) categoryData.name = input.name;
     if (input.note !== undefined) categoryData.note = input.note;
     if (input.goalTarget !== undefined) categoryData.goal_target = Math.round(input.goalTarget * 1000);

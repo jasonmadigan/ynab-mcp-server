@@ -28,7 +28,8 @@ export async function execute(input: GetUnapprovedTransactionsInput, api: ynab.A
 
     const response = await api.transactions.getTransactions(
       budgetId,
-      undefined,
+      undefined, // sinceDate
+      undefined, // untilDate
       ynab.GetTransactionsTypeEnum.Unapproved
     );
 

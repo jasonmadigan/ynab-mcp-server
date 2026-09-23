@@ -36,19 +36,23 @@ export async function execute(input, api) {
         let rawTransactions;
         // Use the appropriate API method based on filters
         if (input.accountId) {
-            const response = await api.transactions.getTransactionsByAccount(budgetId, input.accountId, input.sinceDate, mapTransactionType(input.type));
+            const response = await api.transactions.getTransactionsByAccount(budgetId, input.accountId, input.sinceDate, undefined, // untilDate
+            mapTransactionType(input.type));
             rawTransactions = response.data.transactions;
         }
         else if (input.categoryId) {
-            const response = await api.transactions.getTransactionsByCategory(budgetId, input.categoryId, input.sinceDate, mapTransactionType(input.type));
+            const response = await api.transactions.getTransactionsByCategory(budgetId, input.categoryId, input.sinceDate, undefined, // untilDate
+            mapTransactionType(input.type));
             rawTransactions = response.data.transactions;
         }
         else if (input.payeeId) {
-            const response = await api.transactions.getTransactionsByPayee(budgetId, input.payeeId, input.sinceDate, mapTransactionType(input.type));
+            const response = await api.transactions.getTransactionsByPayee(budgetId, input.payeeId, input.sinceDate, undefined, // untilDate
+            mapTransactionType(input.type));
             rawTransactions = response.data.transactions;
         }
         else {
-            const response = await api.transactions.getTransactions(budgetId, input.sinceDate, mapTransactionType(input.type));
+            const response = await api.transactions.getTransactions(budgetId, input.sinceDate, undefined, // untilDate
+            mapTransactionType(input.type));
             rawTransactions = response.data.transactions;
         }
         // Filter out deleted and apply limit

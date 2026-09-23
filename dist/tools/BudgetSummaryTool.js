@@ -20,7 +20,7 @@ export async function execute(input, api) {
         console.error(`Getting accounts and categories for budget ${budgetId} and month ${month}`);
         const accountsResponse = await api.accounts.getAccounts(budgetId);
         const accounts = accountsResponse.data.accounts.filter((account) => account.deleted === false && account.closed === false);
-        const monthBudget = await api.months.getBudgetMonth(budgetId, month);
+        const monthBudget = await api.months.getPlanMonth(budgetId, month);
         const categories = monthBudget.data.month.categories
             .filter((category) => category.deleted === false && category.hidden === false);
         return {

@@ -91,6 +91,7 @@ describe('GetTransactionsTool', () => {
       expect(mockApi.transactions.getTransactions).toHaveBeenCalledWith(
         'test-budget-id',
         undefined,
+        undefined,
         undefined
       );
 
@@ -131,7 +132,31 @@ describe('GetTransactionsTool', () => {
         'test-budget-id',
         'account-1',
         undefined,
+        undefined,
         undefined
+      );
+    });
+
+    it('should pass the type filter in the type position when filtering by account', async () => {
+      mockApi.transactions.getTransactionsByAccount.mockResolvedValue({
+        data: { transactions: [] },
+      });
+
+      await GetTransactionsTool.execute(
+        {
+          budgetId: 'test-budget-id',
+          accountId: 'account-1',
+          type: 'unapproved',
+        },
+        mockApi as any
+      );
+
+      expect(mockApi.transactions.getTransactionsByAccount).toHaveBeenCalledWith(
+        'test-budget-id',
+        'account-1',
+        undefined,
+        undefined,
+        ynab.GetTransactionsByAccountTypeEnum.Unapproved
       );
     });
 
@@ -152,7 +177,31 @@ describe('GetTransactionsTool', () => {
         'test-budget-id',
         'category-1',
         undefined,
+        undefined,
         undefined
+      );
+    });
+
+    it('should pass the type filter in the type position when filtering by category', async () => {
+      mockApi.transactions.getTransactionsByCategory.mockResolvedValue({
+        data: { transactions: [] },
+      });
+
+      await GetTransactionsTool.execute(
+        {
+          budgetId: 'test-budget-id',
+          categoryId: 'category-1',
+          type: 'uncategorized',
+        },
+        mockApi as any
+      );
+
+      expect(mockApi.transactions.getTransactionsByCategory).toHaveBeenCalledWith(
+        'test-budget-id',
+        'category-1',
+        undefined,
+        undefined,
+        ynab.GetTransactionsByCategoryTypeEnum.Uncategorized
       );
     });
 
@@ -173,7 +222,31 @@ describe('GetTransactionsTool', () => {
         'test-budget-id',
         'payee-1',
         undefined,
+        undefined,
         undefined
+      );
+    });
+
+    it('should pass the type filter in the type position when filtering by payee', async () => {
+      mockApi.transactions.getTransactionsByPayee.mockResolvedValue({
+        data: { transactions: [] },
+      });
+
+      await GetTransactionsTool.execute(
+        {
+          budgetId: 'test-budget-id',
+          payeeId: 'payee-1',
+          type: 'unapproved',
+        },
+        mockApi as any
+      );
+
+      expect(mockApi.transactions.getTransactionsByPayee).toHaveBeenCalledWith(
+        'test-budget-id',
+        'payee-1',
+        undefined,
+        undefined,
+        ynab.GetTransactionsByPayeeTypeEnum.Unapproved
       );
     });
 
@@ -193,6 +266,7 @@ describe('GetTransactionsTool', () => {
       expect(mockApi.transactions.getTransactions).toHaveBeenCalledWith(
         'test-budget-id',
         '2024-01-01',
+        undefined,
         undefined
       );
     });
@@ -213,6 +287,7 @@ describe('GetTransactionsTool', () => {
       expect(mockApi.transactions.getTransactions).toHaveBeenCalledWith(
         'test-budget-id',
         undefined,
+        undefined,
         ynab.GetTransactionsTypeEnum.Unapproved
       );
     });
@@ -232,6 +307,7 @@ describe('GetTransactionsTool', () => {
 
       expect(mockApi.transactions.getTransactions).toHaveBeenCalledWith(
         'test-budget-id',
+        undefined,
         undefined,
         ynab.GetTransactionsTypeEnum.Uncategorized
       );

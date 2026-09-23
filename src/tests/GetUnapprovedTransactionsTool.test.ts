@@ -85,6 +85,7 @@ describe('GetUnapprovedTransactionsTool', () => {
       expect(mockApi.transactions.getTransactions).toHaveBeenCalledWith(
         'test-budget-id',
         undefined,
+        undefined,
         ynab.GetTransactionsTypeEnum.Unapproved
       );
 
@@ -144,6 +145,7 @@ describe('GetUnapprovedTransactionsTool', () => {
 
       expect(mockApi.transactions.getTransactions).toHaveBeenCalledWith(
         'custom-budget-id',
+        undefined,
         undefined,
         ynab.GetTransactionsTypeEnum.Unapproved
       );

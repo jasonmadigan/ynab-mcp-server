@@ -10,9 +10,9 @@ export async function execute(_input, api) {
             };
         }
         console.error("Listing budgets");
-        const budgetsResponse = await api.budgets.getBudgets();
-        console.error(`Found ${budgetsResponse.data.budgets.length} budgets`);
-        const budgets = budgetsResponse.data.budgets.map((budget) => ({
+        const budgetsResponse = await api.plans.getPlans();
+        console.error(`Found ${budgetsResponse.data.plans.length} budgets`);
+        const budgets = budgetsResponse.data.plans.map((budget) => ({
             id: budget.id,
             name: budget.name,
         }));
