@@ -48,6 +48,8 @@ Available tools:
   * requires a transaction ID to approve
   * can be used in conjunction with GetUnapprovedTransactions to approve pending transactions
   * After calling get unapproved transactions, prompt: `approve the transaction for $6.95 on the Apple Card`
+* CreateCategory - creates a category in an existing category group
+  * takes a name and a category group ID (from ListCategories), plus an optional note and goal target
 
 Next:
 * be able to approve multiple transactions with 1 call
