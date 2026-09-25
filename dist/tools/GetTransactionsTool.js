@@ -71,6 +71,9 @@ export async function execute(input, api) {
             category_name: txn.category_name,
             flag_color: txn.flag_color,
             transfer_account_id: txn.transfer_account_id,
+            transfer_transaction_id: txn.transfer_transaction_id,
+            import_id: txn.import_id,
+            import_payee_name_original: txn.import_payee_name_original,
         }));
         return {
             content: [{

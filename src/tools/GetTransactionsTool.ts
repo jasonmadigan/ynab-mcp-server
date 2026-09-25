@@ -55,6 +55,9 @@ interface TransactionData {
   category_name?: string | null;
   flag_color?: string | null;
   transfer_account_id?: string | null;
+  transfer_transaction_id?: string | null;
+  import_id?: string | null;
+  import_payee_name_original?: string | null;
   deleted: boolean;
 }
 
@@ -119,6 +122,9 @@ export async function execute(input: GetTransactionsInput, api: ynab.API) {
         category_name: txn.category_name,
         flag_color: txn.flag_color,
         transfer_account_id: txn.transfer_account_id,
+        transfer_transaction_id: txn.transfer_transaction_id,
+        import_id: txn.import_id,
+        import_payee_name_original: txn.import_payee_name_original,
       }));
 
     return {

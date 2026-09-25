@@ -390,6 +390,47 @@ describe('GetTransactionsTool', () => {
       expect(response.transactions[1].amount).toBe('-15.00');
     });
 
+    it('should include import and transfer link fields', async () => {
+      mockApi.transactions.getTransactionsByAccount.mockResolvedValue({
+        data: {
+          transactions: [
+            {
+              id: 'txn-transfer',
+              date: '2024-01-17',
+              amount: -25000,
+              approved: true,
+              cleared: 'uncleared',
+              account_name: 'Checking',
+              payee_name: 'Transfer : Savings',
+              category_name: 'Uncategorized',
+              transfer_account_id: 'account-2',
+              transfer_transaction_id: 'txn-transfer-other-side',
+              import_id: 'YNAB:P:-25000:2024-01-17:1',
+              import_payee_name_original: 'SAVINGS TOP-UP',
+              deleted: false,
+            },
+            mockTransactionsData[0],
+          ],
+        },
+      });
+
+      const result = await GetTransactionsTool.execute(
+        {
+          budgetId: 'test-budget-id',
+          accountId: 'account-1',
+        },
+        mockApi as any
+      );
+
+      const [imported, manual] = JSON.parse(result.content[0].text).transactions;
+      expect(imported.import_id).toBe('YNAB:P:-25000:2024-01-17:1');
+      expect(imported.import_payee_name_original).toBe('SAVINGS TOP-UP');
+      expect(imported.transfer_transaction_id).toBe('txn-transfer-other-side');
+      expect(manual).not.toHaveProperty('import_id');
+      expect(manual).not.toHaveProperty('import_payee_name_original');
+      expect(manual).not.toHaveProperty('transfer_transaction_id');
+    });
+
     it('should return error when no budget ID available', async () => {
       delete process.env.YNAB_BUDGET_ID;
 
